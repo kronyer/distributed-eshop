@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35818.85 d17.13
+VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aspire", "aspire", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDefaults", "ServiceDefaults\ServiceDefaults.csproj", "{457C3C18-E80B-4D07-BADA-2062FFD3372E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog", "Catalog\Catalog.csproj", "{C4F761E8-674E-7804-3E8F-374E41B75BE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket", "Basket\Basket.csproj", "{11C93E6E-64C1-2C2D-B301-852C7CCA6F88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C4F761E8-674E-7804-3E8F-374E41B75BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4F761E8-674E-7804-3E8F-374E41B75BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4F761E8-674E-7804-3E8F-374E41B75BE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11C93E6E-64C1-2C2D-B301-852C7CCA6F88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11C93E6E-64C1-2C2D-B301-852C7CCA6F88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11C93E6E-64C1-2C2D-B301-852C7CCA6F88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11C93E6E-64C1-2C2D-B301-852C7CCA6F88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{B6539478-8602-46DE-9985-834F24914AC5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{457C3C18-E80B-4D07-BADA-2062FFD3372E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{C4F761E8-674E-7804-3E8F-374E41B75BE9} = {F2840305-479F-4B2D-985F-0DD61BBA9BFF}
+		{11C93E6E-64C1-2C2D-B301-852C7CCA6F88} = {F2840305-479F-4B2D-985F-0DD61BBA9BFF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E4003AC4-DFD2-4816-A5C6-6F07F4851598}
