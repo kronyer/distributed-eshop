@@ -1,6 +1,9 @@
-﻿namespace Catalog.Services;
+﻿using MassTransit;
+using ServiceDefaults.Messaging.Events;
 
-public class ProductService(ProductDbContext dbContext)
+namespace Catalog.Services;
+
+public class ProductService(ProductDbContext dbContext, IBus bus)
 {
     public async Task<IEnumerable<Product>> GetAllProductsAsync()
     {
@@ -17,6 +20,20 @@ public class ProductService(ProductDbContext dbContext)
     }
     public async Task UpdateProductAsync(Product product, Product productDto)
     {
+#warning use the outbox pattern and make it atomic
+        if (productDto.Price != product.Price)
+        {
+            var integrationEvent = new ProductPriceChangedIntegrationEvent
+            {
+                ProductId = product.Id,
+                Name = productDto.Name,
+                Description = productDto.Description,
+                Price = productDto.Price,
+                ImageUrl = productDto.ImageUrl
+            };
+            await bus.Publish(integrationEvent);
+        }
+
         product.Name = productDto.Name;
         product.Description = productDto.Description;
         product.Price = productDto.Price;

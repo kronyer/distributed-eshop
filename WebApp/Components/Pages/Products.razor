@@ -1,0 +1,58 @@
+﻿@page "/products"
+@using Microsoft.AspNetCore.OutputCaching
+
+
+@inject CatalogApiClient CatalogApiClient
+@attribute [StreamRendering(true)]
+@attribute [OutputCache(Duration = 10)]
+
+<PageTitle>Products</PageTitle>
+
+<h1>Products</h1>
+
+<p>Look some of ours products</p>
+
+@if (products is null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (products.Count == 0)
+{
+    <p><em>There is no products to show...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>
+                        <img height="80" width="80" src="~/favicon.png" />
+                    </td>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Product>? products;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await CatalogApiClient.GetProductsAsync();
+    }
+}
