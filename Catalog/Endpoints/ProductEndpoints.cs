@@ -74,6 +74,20 @@
                 .Produces(StatusCodes.Status204NoContent)
                 .Produces(StatusCodes.Status404NotFound);
 
+            //SUPPORT
+            group.MapGet("/support/{query}", async (string query, ProductAIService productService) =>
+            {
+                var response = await productService.SupportAsync(query);
+                if (response is null)
+                {
+                    return Results.NotFound();
+                }
+                return Results.Ok(response);
+            })
+                .WithName("Support")
+                .Produces(StatusCodes.Status404NotFound)
+                .Produces(StatusCodes.Status200OK);
+
         }
     }
 }

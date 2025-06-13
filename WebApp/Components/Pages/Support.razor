@@ -1,0 +1,43 @@
+﻿@page "/support"
+
+@attribute [StreamRendering(true)]
+@rendermode InteractiveServer
+
+@inject CatalogApiClient CatalogApiClient
+
+<PageTitle>Support</PageTitle>
+
+<h1>Support</h1>
+
+<p>Ask questions about our phones!</p>
+
+<div class="form-group">
+    <label for="query" class="form-label">Type your question</label>
+    <div class="input-group mb-3">
+        <input type="text" id="query" class="form-control" @bind="queryTerm" placeholder="Type your question here..." />
+        <button  id= "btn-send" class="btn btn-primary" @onclick="OnSubmit">Submit</button>
+    </div>
+</div>
+
+@if (response != null)
+{
+    <p><em>@response</em></p>
+}
+
+@code {
+    private string queryTerm = default!;
+    private string response = default!;
+
+    private async Task OnSubmit()
+    {
+        if (string.IsNullOrWhiteSpace(queryTerm))
+        {
+            response = "Please enter a question.";
+            return;
+        }
+        response = "Loading response..."; 
+        response = await CatalogApiClient.SupportProducts(queryTerm);
+        queryTerm = string.Empty; // Clear the input after submission
+    }
+
+}

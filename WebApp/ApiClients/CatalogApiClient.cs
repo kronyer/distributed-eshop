@@ -23,4 +23,11 @@ public class CatalogApiClient(HttpClient httpClient)
         }
         return response;
     }
+
+    public async Task<string> SupportProducts(string query)
+    {
+        var response = await httpClient.GetFromJsonAsync<string>($"/products/support/{query}");
+        return response!;
+    }
+
 }
