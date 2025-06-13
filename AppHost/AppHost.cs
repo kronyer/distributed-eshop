@@ -52,9 +52,11 @@ var catalog = builder
     .WithReference(catalogDb)//
     .WithReference(rabbitmq)
     .WithReference(llama)
+    .WithReference(embedding)
     .WaitFor(catalogDb)
     .WaitFor(rabbitmq)
-    .WaitFor(llama);
+    .WaitFor(llama)
+    .WaitFor(embedding);
 
 var basket = builder
     .AddProject<Projects.Basket>("basket")
