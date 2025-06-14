@@ -58,4 +58,11 @@ public class ProductService(ProductDbContext dbContext, IBus bus)
         dbContext.Products.Remove(product);
         await dbContext.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<Product>> SearchProductAsync(string query)
+    {
+        return await dbContext.Products
+            .Where(product => product.Name.Contains(query))
+            .ToListAsync();
+    }
 }

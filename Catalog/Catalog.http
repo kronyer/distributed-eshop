@@ -52,3 +52,13 @@ Accept: application/json
 
 GET {{Catalog_HostAddress}}/support/give-me-a-cellphone-brand
 Accept: application/json
+
+### search
+GET {{Catalog_HostAddress}}/search/Samsung 
+Accept: application/json
+
+### serachIA
+GET {{Catalog_HostAddress}}/aisearch/read
+Accept: application/json
+
+####

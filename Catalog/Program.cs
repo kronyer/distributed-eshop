@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Hosting;
+using Microsoft.SemanticKernel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,12 @@ builder.Services.AddMassTransitWithAssemblies(Assembly.GetExecutingAssembly());
 
 //builder.AddOllamaSharpChatClient("ollama-llama3-2");//pm depreacted
 builder.AddOllamaApiClient("ollama-llama3-2").AddChatClient();
+
+//builder.AddOllamaSharpEmbeddingGenerator("ollama-all-minilm"); deprecated
+builder.AddOllamaApiClient("ollama-all-minilm").AddEmbeddingGenerator();
+
+builder.Services.AddInMemoryVectorStoreRecordCollection<int, ProductVector>("products");
+
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

@@ -88,6 +88,40 @@
                 .Produces(StatusCodes.Status404NotFound)
                 .Produces(StatusCodes.Status200OK);
 
+
+            //SEARCH
+            group.MapGet("/search/{query}", async (string query, ProductService productService) =>
+            {
+                if (string.IsNullOrWhiteSpace(query))
+                {
+                    return Results.BadRequest("Query cannot be null or empty.");
+                }
+                var products = await productService.SearchProductAsync(query);
+                return Results.Ok(products);
+            })
+                .WithName("SearchProducts")
+                .Produces<IEnumerable<Product>>(StatusCodes.Status200OK)
+                .Produces(StatusCodes.Status400BadRequest);
+
+            //searchAI
+            group.MapGet("aisearch/{query}", async (string query, ProductAIService productService) =>
+            {
+                if (string.IsNullOrWhiteSpace(query))
+                {
+                    return Results.BadRequest("Query cannot be null or empty.");
+                }
+                var response = await productService.SearchProductsAsync(query);
+                if (response is null)
+                {
+                    return Results.NotFound();
+                }
+                return Results.Ok(response);
+            })
+                .WithName("SearchProductsAI")
+                .Produces<string>(StatusCodes.Status200OK)
+                .Produces(StatusCodes.Status400BadRequest)
+                .Produces(StatusCodes.Status404NotFound);
+
         }
     }
 }

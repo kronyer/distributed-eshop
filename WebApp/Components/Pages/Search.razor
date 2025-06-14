@@ -1,0 +1,85 @@
+﻿@page "/search"
+@using Microsoft.AspNetCore.OutputCaching
+
+
+@inject CatalogApiClient CatalogApiClient
+@attribute [StreamRendering(true)]
+@attribute [OutputCache(Duration = 10)]
+@rendermode InteractiveServer
+
+<PageTitle>Search Products</PageTitle>
+
+<h1>Search Products</h1>
+
+<p>Look some of ours products</p>
+
+<div class="form-group">
+    <label for="query" class="form-label">Search....</label>
+    <div class="input-group mb-3">
+        <input type="text" id="query" class="form-control" @bind="queryTerm" placeholder="Search..." />
+        <button id="btn-send" class="btn btn-primary" @onclick="OnSubmit">Submit</button>
+    </div>
+    <div class="form-check form-switch mb-3">
+        <InputCheckbox id="aiSearchCheckBox" @bind-Value="aiSearch"/>
+        <label class="form-check-label" for="aiSearchCheckBox">Use AI Search</label>
+    </div>
+</div>
+
+@if (products is null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (products.Count == 0)
+{
+    <p><em>There is no products to show...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>
+                        <img height="80" width="80" src="~/favicon.png" />
+                    </td>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Product>? products;
+    private string queryTerm = string.Empty;
+    private bool aiSearch = false;
+
+    private async Task OnSubmit()
+    {
+        if (string.IsNullOrWhiteSpace(queryTerm))
+        {
+            products = new List<Product>();
+            return;
+        }
+        
+        products = await CatalogApiClient.SearchProducts(queryTerm, aiSearch);
+    }
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await CatalogApiClient.GetProductsAsync();
+    }
+}
